@@ -1,0 +1,7 @@
+<h2>listing for <%= @requestedPath %></h2>
+
+<ul> 
+  <% @arr.each do |item| %>
+    <li><a href="<%= item["path"] %>"><%= item["filename"] %></a></li>
+  <% end %>
+</ul> 
