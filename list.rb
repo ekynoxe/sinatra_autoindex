@@ -10,6 +10,13 @@ get '/*' do
 
 	# Listing a directory?
 	if File.directory?(localPath)
+		# redirecting to directory with trailing slash in case we want to serve a
+		# => static site with relative references for assets
+		if !match = env['REQUEST_PATH'].match(/(.*)\/$/)
+			redirect env['REQUEST_PATH'] + '/'
+			return
+		end
+
 		# If there's an index.html, serve it.
 		indexFile = File.join(localPath, 'index.html')
 		if File.exists?(indexFile)
